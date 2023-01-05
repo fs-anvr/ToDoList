@@ -2,7 +2,7 @@ package com.example.todolist
 
 import com.example.todolist.model.TaskList
 
-interface TaskListActionListener {
+interface ListActionListener {
 
     fun onListMove(list: TaskList, moveBy: Int)
 

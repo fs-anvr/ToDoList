@@ -1,12 +1,14 @@
 package com.example.todolist.model
 
-typealias TaskListListener = (lists : List<TaskList>) -> Unit
+import java.util.Collections
 
-class TaskListServiceImpl : TaskListService {
+typealias ListListener = (lists : List<TaskList>) -> Unit
+
+class ListServiceImpl : ListService {
 
     private var lists = mutableListOf<TaskList>()
 
-    private var listeners = mutableSetOf<TaskListListener>()
+    private var listeners = mutableSetOf<ListListener>()
 
     init {
         lists = (1..100).map { TaskList(
@@ -16,12 +18,12 @@ class TaskListServiceImpl : TaskListService {
         ) }.toMutableList()
     }
 
-    fun addListener(listener : TaskListListener) {
+    override fun addListener(listener : ListListener) {
         listeners.add(listener)
         listener.invoke(lists)
     }
 
-    fun removeListener(listener: TaskListListener) {
+    override fun removeListener(listener: ListListener) {
         listeners.remove(listener)
     }
 
@@ -29,12 +31,12 @@ class TaskListServiceImpl : TaskListService {
         listeners.forEach { it.invoke(lists) }
     }
 
-    override fun createTaskList(task: TaskList) {
+    override fun createList(task: TaskList) {
         lists.add(task)
         notifyChanges()
     }
 
-    override fun getTaskList(id: Int) : Result<TaskList> {
+    override fun getList(id: Int) : Result<TaskList> {
         val index = lists.indexOfFirst { it.id == id }
         if (index != -1) {
             return Result.success(lists[index])
@@ -45,17 +47,19 @@ class TaskListServiceImpl : TaskListService {
         ))
     }
 
-    override fun changeTaskList(oldValue : TaskList, newValue: TaskList) {
-        if (getTaskList(oldValue.id).isFailure) {
+    override fun moveList(list: TaskList, moveBy: Int) {
+        if (getList(list.id).isFailure) {
             return
         }
 
-        lists[oldValue.id] = newValue
+        val index = lists.indexOf(list)
+
+        Collections.swap(lists, index, index + moveBy)
         notifyChanges()
     }
 
-    override fun deleteTaskList(list: TaskList) {
-        if (getTaskList(list.id).isFailure) {
+    override fun deleteList(list: TaskList) {
+        if (getList(list.id).isFailure) {
             return
         }
 

@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ItemListBinding
 import com.example.todolist.model.TaskList
 
-class TaskListAdapter(
-    private val actionListener: TaskListActionListener
-) : RecyclerView.Adapter<TaskListAdapter.ListViewHolder>(), OnClickListener {
+class ListAdapter(
+    private val actionListener: ListActionListener
+) : RecyclerView.Adapter<ListAdapter.ListViewHolder>(), OnClickListener {
 
     var lists : List<TaskList> = emptyList()
         set(new_value) {
