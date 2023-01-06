@@ -11,4 +11,7 @@
     <string name="RenameList">Переименовать список</string>
     <string name="DeleteList">Удалить список</string>
     <string name="DeleteComplitedTasks">Удалить выполненные задачи</string>
+    <string name="MoreButtonDescription">All Lists button</string>
+    <string name="NewButtonDescription">New list button</string>
+    <string name="DetailsButtonDescription">List details button</string>
 </resources>

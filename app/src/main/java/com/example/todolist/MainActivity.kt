@@ -2,13 +2,10 @@ package com.example.todolist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.fragments.ListDetailsFragment
 import com.example.todolist.fragments.ListFragment
 import com.example.todolist.model.TaskList
-import com.example.todolist.model.ListListener
-import com.example.todolist.model.ListServiceImpl
 import com.example.todolist.model.Task
 
 class MainActivity : AppCompatActivity(), Navigator {
