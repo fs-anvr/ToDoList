@@ -6,7 +6,11 @@ interface ListService {
 
     fun getList(id: Int) : Result<TaskList>
 
+    fun getLists() : List<TaskList>
+
     fun moveList(list: TaskList, moveBy: Int)
+
+    fun changeList(oldValue: TaskList, newValue: TaskList)
 
     fun deleteList(list : TaskList)
 

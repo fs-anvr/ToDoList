@@ -14,7 +14,8 @@ class ListServiceImpl : ListService {
         lists = (1..100).map { TaskList(
             id = it,
             name = it.toString(),
-            tasks = mutableListOf<Task>()
+            tasks = mutableListOf<Task>(),
+            sortType = TaskList.SortType.DEFAULT
         ) }.toMutableList()
     }
 
@@ -47,6 +48,10 @@ class ListServiceImpl : ListService {
         ))
     }
 
+    override fun getLists(): List<TaskList> {
+        return lists
+    }
+
     override fun moveList(list: TaskList, moveBy: Int) {
         if (getList(list.id).isFailure) {
             return
@@ -56,6 +61,14 @@ class ListServiceImpl : ListService {
 
         Collections.swap(lists, index, index + moveBy)
         notifyChanges()
+    }
+
+    override fun changeList(oldValue: TaskList, newValue: TaskList) {
+        val index = lists.indexOf(oldValue)
+        if (index == -1) {
+            return
+        }
+        lists[index] = newValue
     }
 
     override fun deleteList(list: TaskList) {
